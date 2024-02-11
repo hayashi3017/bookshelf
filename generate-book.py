@@ -37,11 +37,6 @@ def main():
     with open('src/SUMMARY.md', 'w') as summary:
         summary.write('[Introduction](introduction.md)\n\n')
         collect(summary, 'text', 0)
-        for name in os.listdir('text'):
-            subdir = os.path.join('text', name)
-            if os.path.isdir(subdir):
-              summary.write(f'\n\n## [{name}]({name}/README.md)\n\n')
-              collect(summary, subdir, 0)
 
     subprocess.call(['mdbook', 'build'])
 
@@ -53,6 +48,7 @@ def collect(summary, path, depth):
         name = entry.name[:-3]
         link_path = entry.path[5:]
         summary.write(f'{indent}- [{name}]({link_path})\n')
+        # ターゲットディレクトリの抽出が必要
         maybe_subdir = os.path.join(path, name)
         if os.path.isdir(maybe_subdir):
             collect(summary, maybe_subdir, depth+1)
