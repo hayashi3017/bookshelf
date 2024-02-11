@@ -45,4 +45,5 @@ jobs:
           projectName: bookshelf
           directory: /
           branch: main
+          workingDirectory: /artifact
           wranglerVersion: "3"
