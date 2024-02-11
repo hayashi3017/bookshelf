@@ -41,6 +41,5 @@ jobs:
           projectName: bookshelf
           directory: /
           branch: main
-          # Optional: Change the working directory
-          workingDirectory: my-site
+          workingDirectory: book
           wranglerVersion: "3"
