@@ -33,17 +33,12 @@ jobs:
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
-      - name: Confirm files
-        run: |
-          ls -lart
-          ls -lart artifact
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: bookshelf
-          directory: /
+          directory: artifact
           branch: main
-          workingDirectory: /artifact
           wranglerVersion: "3"
