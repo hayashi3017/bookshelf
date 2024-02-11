@@ -39,6 +39,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: bookshelf
+          # artifact/配下にビルド資材が展開されている
           directory: artifact
           branch: main
+          # 特に意味はないので将来的に削除しても問題ないと思う
           wranglerVersion: "3"
