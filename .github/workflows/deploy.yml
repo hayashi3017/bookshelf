@@ -18,6 +18,8 @@ jobs:
           echo `pwd`/mdbook >> $GITHUB_PATH
       - name: Generate Book
         run: |
+          whoami
+          ls -lart
           ./generate-book.py
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
