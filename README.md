@@ -1,5 +1,5 @@
+This is my book-shelf including books about software development.
 
 - Hosts by CoudFlare Pages
-- Serve by Caddy
 - CI/CD by Github Actions
 - Build by mdbook
