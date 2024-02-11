@@ -41,5 +41,4 @@ jobs:
           projectName: bookshelf
           directory: /
           branch: main
-          workingDirectory: book
           wranglerVersion: "3"
