@@ -42,10 +42,7 @@ jobs:
         with:
           path: ${{ inputs.cache-path }}
           key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
-  upload:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           path: ./book

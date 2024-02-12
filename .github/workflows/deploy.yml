@@ -11,6 +11,7 @@ jobs:
       cache-path: ./book
       dir-name: subjects
   build_foo:
+    needs: build_base
     uses: ./.github/workflows/reusable_build.yml
     with:
       cache-path: ./book/foo
