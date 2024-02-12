@@ -1,6 +1,9 @@
 [book]
 authors = ["hayashi3017"]
-language = "en"
+language = "ja"
 multilingual = false
 src = "src"
 title = "subjects"
+
+[output.html]
+no-section-label = true
