@@ -5,18 +5,6 @@ on:
       - main
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install mdbook
-        run: |
-          mkdir mdbook
-          # for updates see: https://github.com/rust-lang/mdBook/tags
-          curl -Lf https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
-          echo `pwd`/mdbook >> $GITHUB_PATH
   build_base:
     uses: ./.github/workflows/reusable_build.yml
     with:
