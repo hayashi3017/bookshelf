@@ -9,14 +9,14 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: subjects
-  build_foo:
+  build_Rust:
     needs: build_base
     uses: ./.github/workflows/reusable_build.yml
     with:
-      dir-name: foo
+      dir-name: Rust
 
   deploy:
-    needs: [build_base, build_foo]
+    needs: [build_base, build_Rust]
     runs-on: ubuntu-latest
     permissions:
       contents: read
