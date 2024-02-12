@@ -1,4 +1,3 @@
 # TOC
 
-- [foo](/foo)
-
+- [Rust](/Rust)
