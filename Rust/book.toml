@@ -1,0 +1,9 @@
+[book]
+authors = ["hayashi3017"]
+language = "ja"
+multilingual = false
+src = "src"
+title = "Rust"
+
+[output.html]
+no-section-label = true
