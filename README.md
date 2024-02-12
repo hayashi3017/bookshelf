@@ -51,13 +51,13 @@ mdbookを使用していますが、[mkdocs](https://www.mkdocs.org/)へ変更�
 ```md
 <!-- ネスト -->
 - /text
-  - subjects
+  - home
     - foo
     - bar
     - baz
 
 <!-- 並列 -->
-- subjects
+- home
 - foo
 - bar
 - baz

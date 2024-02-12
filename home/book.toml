@@ -3,10 +3,8 @@ authors = ["hayashi3017"]
 language = "ja"
 multilingual = false
 src = "src"
-title = "Subjects"
+title = "Home"
 
 # https://rust-lang.github.io/mdBook/format/configuration/renderers.html?highlight=no-section-label#html-renderer-options
 [output.html]
 no-section-label = true
-git-repository-url = "https://github.com/hayashi3017/bookshelf"
-site-url = "/"

@@ -8,7 +8,7 @@ jobs:
   build_base:
     uses: ./.github/workflows/reusable_build.yml
     with:
-      dir-name: subjects
+      dir-name: home
   build_Rust:
     needs: build_base
     uses: ./.github/workflows/reusable_build.yml
