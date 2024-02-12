@@ -1,0 +1,37 @@
+name: Reusable Build Workflow
+
+on:
+  workflow_call:
+    inputs:
+      cache-path:
+        description: 'Directory path for cache.'
+        required: true
+        type: string
+      dir-name:
+        description: 'Directory name used in executing mdbook build.'
+        required: true
+        type: string
+
+env:
+  MY_ENV: ${{ inputs.dir-name }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cache ${{ inputs.dir-name }}
+        # can't set dynamic id
+        id:  cache_check
+        uses: actions/cache@v4
+        with:
+          path: ${{ inputs.cache-path }}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
+      - name: Generate Book ${{ inputs.dir-name }}
+        if : steps.cache_check.outputs.cache-hit != 'true'
+        run: |
+          ./generate-book.py ${{ inputs.dir-name }}
+      - name: Save Cache ${{ inputs.dir-name }}
+        if : steps.cache_check.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ inputs.cache-path }}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
