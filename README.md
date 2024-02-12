@@ -31,7 +31,6 @@ FIXME: Automation this.
     needs: build_base   # previous job
     uses: ./.github/workflows/reusable_build.yml
     with:
-      cache-path: ./book/foo
       dir-name: foo
 
   deploy:

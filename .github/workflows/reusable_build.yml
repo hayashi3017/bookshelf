@@ -3,10 +3,6 @@ name: Reusable Build Workflow
 on:
   workflow_call:
     inputs:
-      cache-path:
-        description: 'Directory path for cache.'
-        required: true
-        type: string
       dir-name:
         description: 'Directory name used in executing mdbook build.'
         required: true
@@ -31,7 +27,7 @@ jobs:
         id:  cache_check
         uses: actions/cache/restore@v4
         with:
-          path: ${{ inputs.cache-path }}
+          path: ./book
           key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
       - name: Generate Book ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
@@ -41,7 +37,7 @@ jobs:
         if : steps.cache_check.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: ${{ inputs.cache-path }}
+          path: ./book
           key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

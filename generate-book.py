@@ -2,7 +2,8 @@
 
 """
 `mdbook build`のラッパーであり、mdbookを階層的にビルドします
-第一引数にmdbookのパス名 (タイトルも同じ想定)を指定してください
+第一引数にmdbookのパス名 (タイトルも同じ想定)を指定してください、例外として`subjects`を指定した場合は/book直下にビルド成果物を配置します
+  例) `mdbook init subjects --title subjects --ignore git`などによって/subjectsをルートとするmdbookが存在する場合、`python3 generate-book.py subjects`で/book/配下にビルド成果物を配置する
   例) `mdbook init foo --title foo --ignore git`などによって/fooをルートとするmdbookが存在する場合、`python3 generate-book.py foo`で/book/foo/配下にビルド成果物を配置する
 
 """
@@ -18,7 +19,11 @@ def main(book_title):
     init_dir('src')
     gen_src(book_title)
 
-    result = subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
+    # subjectsはトップのためbook/直下に配置する
+    if book_title == 'subjects':
+        result = subprocess.call(['mdbook', 'build', '-d', 'book'])
+    else:
+        result = subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
     # TODO: test
     if result != 0:
         print("Error: An error occurred during the execution of mdbook build.", file=sys.stderr)
