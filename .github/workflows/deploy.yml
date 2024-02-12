@@ -52,6 +52,11 @@ jobs:
           path: ./book/foo
           key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./book
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
