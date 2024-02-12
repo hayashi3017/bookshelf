@@ -37,18 +37,13 @@ jobs:
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
-      - name: test
-        run: |
-          ls -lart
-          cd all-my-files && ls -lart
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: bookshelf
-          # artifact/配下にビルド資材が展開されている
-          directory: artifact
+          directory: all-my-files
           branch: main
           # 特に意味はないので将来的に削除しても問題ないと思う
           wranglerVersion: "3"
