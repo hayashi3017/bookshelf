@@ -13,23 +13,21 @@ import shutil
 import subprocess
 import sys
 
-# 第一引数としてbook_titleを取得できなければ終了する
-book_title = sys.argv[1] if len(sys.argv) > 1 else ""
-if book_title == '':
-    print("エラーが発生しました。プログラムを終了します。", file=sys.stderr)
-    sys.exit(1)
-
 # mdbookがsrc/配下をみてbuildするので、一時的に資材をsrc/配下へ配置しbuildする
 # build資材はbook/配下にまとまっていく想定
-def main():
+def main(book_title):
     init_dir('src')
     gen_src(book_title)
 
     # subjectsはトップのためbook/直下に配置する
     if book_title == 'subjects':
-        subprocess.call(['mdbook', 'build', '-d', 'book'])
+        result = subprocess.call(['mdbook', 'build', '-d', 'book'])
     else:
-        subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
+        result = subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
+    # TODO: test
+    if result != 0:
+        print("Error: An error occurred during the execution of mdbook build.", file=sys.stderr)
+        sys.exit(1)
 
 def init_dir(dir):
     if os.path.exists(dir):
@@ -48,4 +46,10 @@ def symlink(src, dst):
         os.symlink(src, dst)
 
 if __name__ == '__main__':
-    main()
+    # 第一引数としてbook_titleを取得できなければ終了する
+    book_title = sys.argv[1] if len(sys.argv) > 1 else ""
+    if book_title == '':
+        print("Error: No argument provided. Please specify the book title.", file=sys.stderr)
+        sys.exit(1)
+    # FIXME: book_titleの検証、dirになければ適切なエラーを返す
+    main(book_title)
