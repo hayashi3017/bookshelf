@@ -31,8 +31,6 @@ jobs:
           path: ./book
           pattern: artifact_*
           merge-multiple: true
-      - name: test
-        run: ls -lart
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -41,5 +39,3 @@ jobs:
           projectName: bookshelf
           directory: book
           branch: main
-          # 特に意味はないので将来的に削除しても問題ないと思う
-          wranglerVersion: "3"

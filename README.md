@@ -26,22 +26,16 @@ Then deployment is complete by GitHub Actions.
 FIXME: Automation this.
 
 ```yml
-      - name: Check Cache foo
-        id: cache_check_foo
-        uses: actions/cache@v4
-        with:
-          path: ./book
-          key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
-      - name: Generate Book foo
-        if : steps.cache_check_foo.outputs.cache-hit != 'true'
-        run: |
-          ./generate-book.py foo
-      - name: Save Cache foo
-        if : steps.cache_check_foo.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: ./book/foo
-          key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
+  # add
+  build_foo:
+    needs: build_base   # previous job
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      cache-path: ./book/foo
+      dir-name: foo
+
+  deploy:
+    needs: [build_foo]  # add
 ```
 
 ## How to develop
