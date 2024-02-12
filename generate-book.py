@@ -28,30 +28,28 @@ import subprocess
 import sys
 
 WORK_DIR = '/home/hayashi3017/git/bookshelf'
-SRC_DIR = 'text'
 
+# 第一引数としてbook_titleを取得できなければ終了する
 book_title = sys.argv[1] if len(sys.argv) > 1 else ""
+if book_title == '':
+    print("エラーが発生しました。プログラムを終了します。", file=sys.stderr)
+    sys.exit(1)
 
 # mdbookがsrc/配下をみてbuildするので、一時的に資材をsrc/配下へ配置しbuildする
 # build資材はbook/配下にまとまっていく想定
 def main():
     init_dir('src')
+    gen_src(book_title)
+    # mdbookの仕様によりsrc/SUMMARY.mdに固定されている様子、本来ならsrc/{book_title}/SUMMARY.mdとしたい
+    # with open(f'src/SUMMARY.md', 'w') as summary:
+        # summary.write('[Introduction](README.md)\n\n')
+        # collect(summary, book_title, 0)
 
-    if book_title == '':
-      gen_src(book_title)
-      symlink('../README.md', 'src/introduction.md')
-      with open('src/SUMMARY.md', 'w') as summary:
-          summary.write('[Introduction](introduction.md)\n\n')
-          collect(summary, SRC_DIR, 0)
+    # subjectsはトップのためbook/直下に配置する
+    if book_title == 'subjects':
+        subprocess.call(['mdbook', 'build', '-d', 'book'])
     else:
-      init_dir(f'src/{book_title}')
-      gen_src(book_title)
-      # mdbookの仕様によりsrc/SUMMARY.mdに固定されている様子、本来ならsrc/{book_title}/SUMMARY.mdとしたい
-      with open(f'src/SUMMARY.md', 'w') as summary:
-          summary.write('[Introduction](README.md)\n\n')
-          collect(summary, f'{SRC_DIR}/{book_title}', 0)
-
-    subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
+        subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
 
 def init_dir(dir):
     if os.path.exists(dir):
@@ -61,25 +59,28 @@ def init_dir(dir):
 
 # src/配下のファイルを生成
 def gen_src(input_dir):
-      entries = [e for e in os.scandir(f'{SRC_DIR}/{input_dir}') if e.name.endswith('.md')]
-      entries.sort(key=lambda e: e.name)
-      for entry in entries:
-          link_path = entry.path[5:]
-          symlink(f'{WORK_DIR}/{entry.path}', f'src/{link_path}')
+    # entries = [e for e in os.scandir(f'{input_dir}/src') if e.name.endswith('.md') and e.name != 'SUMMARY.md']
+    entries = [e for e in os.scandir(f'{input_dir}/src') if e.name.endswith('.md')]
+    print(f'entries: {entries}')
+    # TODO: needs sort?
+    # entries.sort(key=lambda e: e.name)
+    for entry in entries:
+        symlink(f'../{entry.path}', f'src/{entry.name}')
 
 # summary(目次)に入れる文書をpath配下から再帰的に取得する
 def collect(summary, path, depth):
-    entries = [e for e in os.scandir(path) if e.name.endswith('.md')]
+    book_src = f'{path}/src'
+    entries = [e for e in os.scandir(book_src) if e.name.endswith('.md')]
     entries.sort(key=lambda e: e.name)
     for entry in entries:
         # README.mdはトップで表示するのでsummaryからなくす
         if entry.name == 'README.md':
             continue
         indent = '    '*depth
+        # .mdの削除
         name = entry.name[:-3]
-        link_path = entry.path[5:]
-        summary.write(f'{indent}- [{name}](/{link_path})\n')
-        maybe_subdir = os.path.join(path, name)
+        summary.write(f'{indent}- [{name}](/{path}/{name})\n')
+        maybe_subdir = os.path.join(book_src, name)
         if os.path.isdir(maybe_subdir):
             collect(summary, maybe_subdir, depth+1)
 
