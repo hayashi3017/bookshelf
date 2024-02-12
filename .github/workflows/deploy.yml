@@ -17,6 +17,7 @@ jobs:
           # for updates see: https://github.com/rust-lang/mdBook/tags
           curl -Lf https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
+      # must done first
       - name: Check Cache subjects
         id: cache_check_subjects
         uses: actions/cache@v4
@@ -33,6 +34,7 @@ jobs:
         with:
           path: ./book
           key: ${{ runner.os }}-${{hashfiles('./subjects/src/**.md')}}
+
       - name: Check Cache foo
         id: cache_check_foo
         uses: actions/cache@v4
@@ -49,13 +51,6 @@ jobs:
         with:
           path: ./book/foo
           key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
-      - name: Generate Book bar
-        run: |
-          ./generate-book.py bar
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: ./book
 
   deploy:
     needs: build
