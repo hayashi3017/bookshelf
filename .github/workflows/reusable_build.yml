@@ -45,4 +45,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
+          name: ${{format('artifact_{0}', inputs.dir-name)}}
           path: ./book
