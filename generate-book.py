@@ -19,11 +19,7 @@ def main(book_title):
     init_dir('src')
     gen_src(book_title)
 
-    # subjectsはトップのためbook/直下に配置する
-    if book_title == 'subjects':
-        result = subprocess.call(['mdbook', 'build', '-d', 'book'])
-    else:
-        result = subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
+    result = subprocess.call(['mdbook', 'build', '-d', f'book/{book_title}'])
     # TODO: test
     if result != 0:
         print("Error: An error occurred during the execution of mdbook build.", file=sys.stderr)
