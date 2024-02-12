@@ -1,0 +1,51 @@
+name: Reusable Build Workflow
+
+on:
+  workflow_call:
+    inputs:
+      cache-path:
+        description: 'Directory path for cache.'
+        required: true
+        type: string
+      dir-name:
+        description: 'Directory name used in executing mdbook build.'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install mdbook
+        run: |
+          mkdir mdbook
+          # for updates see: https://github.com/rust-lang/mdBook/tags
+          curl -Lf https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
+          echo `pwd`/mdbook >> $GITHUB_PATH
+      - name: Check Cache ${{ inputs.dir-name }}
+        # can't set dynamic id
+        id:  cache_check
+        uses: actions/cache@v4
+        with:
+          path: ${{ inputs.cache-path }}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
+      - name: Generate Book ${{ inputs.dir-name }}
+        if : steps.cache_check.outputs.cache-hit != 'true'
+        run: |
+          ./generate-book.py ${{ inputs.dir-name }}
+      - name: Save Cache ${{ inputs.dir-name }}
+        if : steps.cache_check.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ inputs.cache-path }}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./book
