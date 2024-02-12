@@ -27,6 +27,7 @@ jobs:
         run: |
           ./generate-book.py subjects
       - name: Save Cache Subjects
+        if : steps.cache_check_subjects.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: ./book
@@ -42,6 +43,7 @@ jobs:
         run: |
           ./generate-book.py foo
       - name: Save Cache foo
+        if : steps.cache_check_foo.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: ./book/foo
