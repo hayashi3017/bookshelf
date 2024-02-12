@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./book
-          key: ${{ runner.os }}-${{hashfiles('./subjects/src/*.md')}}
+          key: ${{ runner.os }}-${{hashfiles('./subjects/src/**.md')}}
       - name: Generate Book subjects
         if : steps.cache_check_subjects.outputs.cache-hit != 'true'
         run: |
@@ -30,13 +30,13 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ./book
-          key: ${{ runner.os }}-${{hashfiles('./subjects/src/*.md')}}
+          key: ${{ runner.os }}-${{hashfiles('./subjects/src/**.md')}}
       - name: Check Cache foo
         id: cache_check_foo
         uses: actions/cache@v4
         with:
           path: ./book
-          key: ${{ runner.os }}-${{hashfiles('./foo/src/*.md')}}
+          key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
       - name: Generate Book foo
         if : steps.cache_check_foo.outputs.cache-hit != 'true'
         run: |
@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ./book/foo
-          key: ${{ runner.os }}-${{hashfiles('./foo/src/*.md')}}
+          key: ${{ runner.os }}-${{hashfiles('./foo/src/**.md')}}
       - name: Generate Book bar
         run: |
           ./generate-book.py bar
