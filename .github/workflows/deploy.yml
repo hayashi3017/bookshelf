@@ -17,33 +17,29 @@ jobs:
       cache-path: ./book/foo
       dir-name: foo
 
-  # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md#merging-multiple-artifacts
-  merge:
-    runs-on: ubuntu-latest
-    needs: [build_base, build_foo]
-    steps:
-      - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@v4
-        with:
-          name: all-my-files
-          pattern: artifact_*
-
   deploy:
-    needs: merge
+    needs: [build_base, build_foo]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
     steps:
+      # https://github.com/actions/download-artifact/blob/main/docs/MIGRATION.md#multiple-uploads-to-the-same-named-artifact
       - name: Download Artifact
         uses: actions/download-artifact@v4
+        with:
+          path: ./book
+          pattern: artifact_*
+          merge-multiple: true
+      - name: test
+        run: ls -lart
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: bookshelf
-          directory: all-my-files
+          directory: book
           branch: main
           # 特に意味はないので将来的に削除しても問題ないと思う
           wranglerVersion: "3"
