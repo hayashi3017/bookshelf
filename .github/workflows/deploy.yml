@@ -31,6 +31,8 @@ jobs:
           path: ./book
           pattern: artifact_*
           merge-multiple: true
+      - name: test
+        run: ls -lart; echo 'book ls'; ls -lart book;
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:

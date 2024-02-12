@@ -2,8 +2,7 @@
 
 """
 `mdbook build`のラッパーであり、mdbookを階層的にビルドします
-第一引数にmdbookのパス名 (タイトルも同じ想定)を指定してください、例外として`subjects`を指定した場合は/book直下にビルド成果物を配置します
-  例) `mdbook init subjects --title subjects --ignore git`などによって/subjectsをルートとするmdbookが存在する場合、`python3 generate-book.py subjects`で/book/配下にビルド成果物を配置する
+第一引数にmdbookのパス名 (タイトルも同じ想定)を指定してください
   例) `mdbook init foo --title foo --ignore git`などによって/fooをルートとするmdbookが存在する場合、`python3 generate-book.py foo`で/book/foo/配下にビルド成果物を配置する
 
 """
