@@ -13,7 +13,7 @@ on:
         type: string
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,10 +25,6 @@ jobs:
           # for updates see: https://github.com/rust-lang/mdBook/tags
           curl -Lf https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
       - name: Check Cache ${{ inputs.dir-name }}
         # can't set dynamic id
         id:  cache_check
@@ -39,7 +35,6 @@ jobs:
       - name: Generate Book ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
         run: |
-          ls -lart
           ./generate-book.py ${{ inputs.dir-name }}
       - name: Save Cache ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
