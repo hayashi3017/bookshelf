@@ -40,7 +40,7 @@ jobs:
       - name: test
         run: |
           ls -lart
-          cd book && ls -lart
+          cd all-my-files && ls -lart
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
