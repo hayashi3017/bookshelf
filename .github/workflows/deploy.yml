@@ -17,8 +17,19 @@ jobs:
       cache-path: ./book/foo
       dir-name: foo
 
-  deploy:
+  # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md#merging-multiple-artifacts
+  merge:
+    runs-on: ubuntu-latest
     needs: [build_base, build_foo]
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: all-my-files
+          pattern: artifact_*
+
+  deploy:
+    needs: merge
     runs-on: ubuntu-latest
     permissions:
       contents: read
