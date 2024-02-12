@@ -39,6 +39,7 @@ jobs:
       - name: Generate Book ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
         run: |
+          ls -lart
           ./generate-book.py ${{ inputs.dir-name }}
       - name: Save Cache ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
