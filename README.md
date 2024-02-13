@@ -20,6 +20,8 @@ mdbook init foo --title foo --ignore git
 mdbook serve --open
 ```
 
+Markdown syntax is [here](https://rust-lang.github.io/mdBook/format/markdown.html).
+
 ### Book Deploy
 Add below to `.github/workflows/deploy.yml`, and push main branch.
 Then deployment is complete by GitHub Actions.

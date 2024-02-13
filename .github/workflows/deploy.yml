@@ -14,9 +14,14 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: Rust
+  build_systemd:
+    needs: build_Rust
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: systemd
 
   deploy:
-    needs: [build_base, build_Rust]
+    needs: [build_base, build_Rust, build_systemd]
     runs-on: ubuntu-latest
     permissions:
       contents: read

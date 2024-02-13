@@ -1,0 +1,9 @@
+[book]
+authors = ["hayashi3017"]
+language = "js"
+multilingual = false
+src = "src"
+title = "systemd"
+
+[output.html]
+no-section-label = true
