@@ -19,9 +19,14 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: systemd
+  build_Cloudflare:
+    needs: build_systemd
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: systemd
 
   deploy:
-    needs: [build_base, build_Rust, build_systemd]
+    needs: [build_base, build_Rust, build_systemd, build_Cloudflare]
     runs-on: ubuntu-latest
     permissions:
       contents: read
