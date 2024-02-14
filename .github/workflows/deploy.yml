@@ -10,17 +10,14 @@ jobs:
     with:
       dir-name: home
   build_Rust:
-    needs: build_base
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: Rust
   build_systemd:
-    needs: build_Rust
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: systemd
   build_Cloudflare:
-    needs: build_systemd
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: Cloudflare
