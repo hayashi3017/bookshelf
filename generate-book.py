@@ -42,11 +42,12 @@ def gen_src(input_dir):
     for entry in entries:
         symlink(f'../{entry.path}', f'src/{entry.name}')
     # src/images/配下の画像ファイル
-    entries = [e for e in os.scandir(f'{input_dir}/src/images') if e.name.endswith(('.png', '.svg'))]
-    if len(entries) > 0:
-      init_dir('src/images')
-      for entry in entries:
-          symlink(f'../../{entry.path}', f'src/images/{entry.name}')
+    if os.path.exists(f'{input_dir}/src/images'):
+      entries = [e for e in os.scandir(f'{input_dir}/src/images') if e.name.endswith(('.png', '.svg'))]
+      if len(entries) > 0:
+        init_dir('src/images')
+        for entry in entries:
+            symlink(f'../../{entry.path}', f'src/images/{entry.name}')
 
 def symlink(src, dst):
     if not os.path.exists(dst):
