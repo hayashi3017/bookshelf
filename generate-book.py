@@ -37,9 +37,16 @@ def init_dir(dir):
 
 # src/配下のファイルを生成
 def gen_src(input_dir):
+    # src/配下のMarkdownファイル
     entries = [e for e in os.scandir(f'{input_dir}/src') if e.name.endswith('.md')]
     for entry in entries:
         symlink(f'../{entry.path}', f'src/{entry.name}')
+    # src/images/配下の画像ファイル
+    entries = [e for e in os.scandir(f'{input_dir}/src/images') if e.name.endswith(('.png', '.svg'))]
+    if len(entries) > 0:
+      init_dir('src/images')
+      for entry in entries:
+          symlink(f'../../{entry.path}', f'src/images/{entry.name}')
 
 def symlink(src, dst):
     if not os.path.exists(dst):
