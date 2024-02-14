@@ -4,3 +4,6 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Cloudflare"
+
+[output.html]
+no-section-label = true
