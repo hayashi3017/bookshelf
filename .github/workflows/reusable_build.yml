@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ./book
-          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}-${{hashfiles(format('./{0}/src/images/*', inputs.dir-name))}}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**', inputs.dir-name))}}
       - name: Generate Book ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
         run: |
@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ./book
-          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**.md', inputs.dir-name))}}-${{hashfiles(format('./{0}/src/images/*', inputs.dir-name))}}
+          key: ${{ runner.os }}-${{hashfiles(format('./{0}/src/**', inputs.dir-name))}}
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
