@@ -10,3 +10,4 @@
   - [Turnstile analytics](./turnstile/analytics.md)
 - [Learning](./learning/index.md)
   - [DNS](./learning/dns.md)
+  - [DNS record](./learning/dns_record.md)
