@@ -21,9 +21,13 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: Cloudflare
+  build_HTML:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: HTML
 
   deploy:
-    needs: [build_base, build_Rust, build_systemd, build_Cloudflare]
+    needs: [build_base, build_Rust, build_systemd, build_Cloudflare, build_HTML]
     runs-on: ubuntu-latest
     permissions:
       contents: read
