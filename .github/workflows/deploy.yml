@@ -31,7 +31,15 @@ jobs:
       dir-name: rfc
 
   deploy:
-    needs: [build_base, build_rust, build_systemd, build_cloudflare, build_html]
+    needs:
+      [
+        build_base,
+        build_rust,
+        build_systemd,
+        build_cloudflare,
+        build_html,
+        build_rfc,
+      ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
