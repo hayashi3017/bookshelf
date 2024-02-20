@@ -9,29 +9,29 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: home
-  build_Rust:
+  build_rust:
     uses: ./.github/workflows/reusable_build.yml
     with:
-      dir-name: Rust
+      dir-name: rust
   build_systemd:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: systemd
-  build_Cloudflare:
+  build_cloudflare:
     uses: ./.github/workflows/reusable_build.yml
     with:
-      dir-name: Cloudflare
-  build_HTML:
+      dir-name: cloudflare
+  build_html:
     uses: ./.github/workflows/reusable_build.yml
     with:
-      dir-name: HTML
+      dir-name: html
   build_rfc:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: rfc
 
   deploy:
-    needs: [build_base, build_Rust, build_systemd, build_Cloudflare, build_HTML]
+    needs: [build_base, build_rust, build_systemd, build_cloudflare, build_html]
     runs-on: ubuntu-latest
     permissions:
       contents: read
