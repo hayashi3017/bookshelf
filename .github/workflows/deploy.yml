@@ -25,6 +25,10 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: HTML
+  build_rfc:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: rfc
 
   deploy:
     needs: [build_base, build_Rust, build_systemd, build_Cloudflare, build_HTML]
