@@ -1,1 +1,1 @@
-# standrd
+# standard

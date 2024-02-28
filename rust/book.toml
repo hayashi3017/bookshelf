@@ -4,6 +4,8 @@ language = "ja"
 multilingual = false
 src = "src"
 title = "Rust"
+edition = "2021"
 
 [output.html]
 no-section-label = true
+fold.enable = true
