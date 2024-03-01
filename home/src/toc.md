@@ -7,3 +7,4 @@
 - [HTML](/html/)
 - [Javascript](/javascript/)
 - [SQL](/sql/)
+- [Sequences](/sequences/)

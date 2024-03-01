@@ -39,6 +39,9 @@ FIXME: Automation this.
     needs: [build_foo]  # add
 ```
 
+### mermaid support
+[badboy/mdbook-mermaid: A preprocessor for mdbook to add mermaid support](https://github.com/badboy/mdbook-mermaid)
+
 ## How to develop
 
 ### about document tool
