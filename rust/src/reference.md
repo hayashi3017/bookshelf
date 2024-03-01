@@ -23,4 +23,5 @@
 - [Introduction - The Rust Reference](https://doc.rust-lang.org/reference/index.html)
 - [Introduction - The Rustonomicon](https://doc.rust-lang.org/nomicon/index.html)
 - [The Unstable Book - The Rust Unstable Book](https://doc.rust-lang.org/nightly/unstable-book/index.html)
-
+- [std - Rust](https://doc.rust-lang.org/std/)
+- [Introduction - Clippy Documentation](https://doc.rust-lang.org/nightly/clippy/)

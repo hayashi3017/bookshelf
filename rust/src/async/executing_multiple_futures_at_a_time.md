@@ -2,7 +2,6 @@
 複数の非同期関数を並行処理する方法の例
 
 ## join!
-シングルスレッドでも可能。
 `join!`が返す値は、各Future結果のタプル。[^note1]
 Futureが`Result`を返す場合、`try_join!`がよいらしい。
 
@@ -53,11 +52,34 @@ async fn main() {
     - [futures-rs/futures-macro/src/join.rs at aafe554b02cbac19d396512b36bce8b688a18115 · rust-lang/futures-rs](https://github.com/rust-lang/futures-rs/blob/aafe554b02cbac19d396512b36bce8b688a18115/futures-macro/src/join.rs#L50-L86)
 
 ## select!
-シングルスレッドでも可能。
+### 基本
 複数の非同期処理のうち一つが完了すれば、応じた処理をする。
 他の非同期処理の完了は待たない。例えば副作用関数や不純関数の場合はどういう扱いになるのだろうか？
+`select!`も式なのでそれぞれの返り値は同じ型でなければならない。
 
-WIP
+syntax: `<pattern> = <expression> => <code>,`
+
+`select!`に渡すFutureはUnpinと[`futures::future::FusedFuture`](https://docs.rs/futures/latest/futures/future/trait.FusedFuture.html)を実装する必要がある[^note3]
+Unpinはselectが可変参照を取得するために必要。moveしては後続処理ができないらしい。
+FusedFutureはselectが完了した後にpollしないように必要。FusedFutureは互いに完了したかどうかを追跡する。selectループで完了していないFutureのみpollするために必要。
+future::readyによって変えるFutureはFusedFutureを実装しているので、再度pollされないような仕組み。
+
+- [`futures::select`](https://docs.rs/futures/latest/futures/macro.select.html)
+  - [Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=cf145e50948de8f1c82a5ddcb16e8c7f)
+  - TODO: なぜ結果が一つに収束するのだろうか
+- [`tokio::select`](https://docs.rs/tokio/latest/tokio/macro.select.html)
+
+Streamは[`futures::stream::FusedStream`](https://docs.rs/futures/latest/futures/stream/trait.FusedStream.html)に対応している。
+
+### Concurrent tasks in a select loop
+
+[`futures::future::Fuse::terminated`](https://docs.rs/futures/latest/futures/future/struct.Fuse.html#method.terminated)は既に完了したFutureをFuseできるので、selectループで便利らしい。
+
+### source code
+- [select in futures - Rust](https://docs.rs/futures/latest/futures/macro.select.html)
+  - [select_internal in futures_macro - Rust](https://docs.rs/futures-macro/latest/futures_macro/macro.select_internal.html)
+    - [futures-rs/futures-macro/src/select.rs at aafe554b02cbac19d396512b36bce8b688a18115 · rust-lang/futures-rs](https://github.com/rust-lang/futures-rs/blob/aafe554b02cbac19d396512b36bce8b688a18115/futures-macro/src/select.rs#L128-L327)
+
 
 ## Spawning
 
@@ -70,3 +92,5 @@ The value returned by join! is a tuple containing the output of each Future pass
 [^note2]: [rust - Concurrent async/await with sleep - Stack Overflow](https://stackoverflow.com/questions/70959134/concurrent-async-await-with-sleep)<br />
 Since the standard/original thread::sleep is blocking, it turns out that the async library is providing async_std::task::sleep( ... ) which is the nonblocking version for sleep. 
 
+[^note3]: [select in futures - Rust](https://docs.rs/futures/latest/futures/macro.select.html)<br />
+Futures directly passed to select! must be Unpin and implement FusedFuture.

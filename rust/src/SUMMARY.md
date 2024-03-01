@@ -12,3 +12,5 @@
   - [async/await](./async/async_await.md)
   - [Pinning](./async/pinning.md)
   - [Executing Multiple Futures at a Time](./async/executing_multiple_futures_at_a_time.md)
+- [macro](./macro/index.md)
+  - [example](./macro/example.md)
