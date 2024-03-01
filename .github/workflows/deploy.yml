@@ -29,6 +29,14 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: rfc
+  build_javascript:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: javascript
+  build_sql:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: sql
 
   deploy:
     needs:
@@ -39,6 +47,8 @@ jobs:
         build_cloudflare,
         build_html,
         build_rfc,
+        build_javascript,
+        build_sql,
       ]
     runs-on: ubuntu-latest
     permissions:

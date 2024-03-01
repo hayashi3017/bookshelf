@@ -1,5 +1,9 @@
 # TOC
 
-- [Rust](/Rust/)
+- [Rust](/rust/)
 - [systemd](/systemd/)
-- [Cloudflare](/Cloudflare/)
+- [Cloudflare](/cloudflare/)
+- [RFC](/rfc/)
+- [HTML](/html/)
+- [Javascript](/javascript/)
+- [SQL](/sql/)
