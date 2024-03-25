@@ -83,7 +83,11 @@ Streamは[`futures::stream::FusedStream`](https://docs.rs/futures/latest/futures
 
 ## Spawning
 
+spawnはJoinHandleを返す。
 
+JoinHandleはFutureを実装しているのでawaitするまで結果を得られない。[^note88]
+
+mainタスクとspawnされたタスクとのやり取りとして、channelsを利用する。
 
 ---
 [^note1]: [join! - Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/06_multiple_futures/02_join.html)<br />
@@ -94,3 +98,6 @@ Since the standard/original thread::sleep is blocking, it turns out that the asy
 
 [^note3]: [select in futures - Rust](https://docs.rs/futures/latest/futures/macro.select.html)<br />
 Futures directly passed to select! must be Unpin and implement FusedFuture.
+
+[^note88]: [Spawning - Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/06_multiple_futures/04_spawning.html)<br />
+The JoinHandle returned by spawn implements the Future trait, so we can .await it to get the result of the task.
