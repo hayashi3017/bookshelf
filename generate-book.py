@@ -35,17 +35,45 @@ def init_dir(dir):
         shutil.rmtree(dir)
     os.mkdir(dir)
 
+# get file recursively
+def get_files(directory, extention):
+    entries = []
+    for entry in os.scandir(directory):
+        if entry.is_file() and entry.name.endswith(extention):
+            entries.append(entry)
+        elif entry.is_dir():
+            entries.extend(get_files(entry.path, extention))
+    return entries
+
+# get dirctory recursively
+def get_dir(directory):
+    entries = []
+    for entry in os.scandir(directory):
+        if entry.is_dir():
+            entries.append(entry)
+            entries.extend(get_dir(entry.path))
+    return entries
+
 # src/配下のファイルを生成
 def gen_src(input_dir):
+    # 先にdirectoryを再帰的に初期化する
+    dirs = get_dir(input_dir)
+    for dir in dirs:
+        new_dir = dir.path[len(f'{input_dir}/'):]
+        init_dir(new_dir)
     # src/配下のMarkdownファイル
-    entries = [e for e in os.scandir(f'{input_dir}/src') if e.name.endswith('.md')]
+    entries = get_files(f'{input_dir}/src', '.md')
     for entry in entries:
-        symlink(f'../{entry.path}', f'src/{entry.name}')
+        # input_dirからsrc/配下への付け替え
+        # 例）rust/src/standard/index.mdからstandard/index.mdへ
+        relative_path = entry.path[len(f'{input_dir}/src/'):]
+        dir_count = relative_path.count('/')
+        pre_path = '../' * dir_count
+        symlink(f'../{pre_path}{entry.path}', f'src/{relative_path}')
     # src/images/配下の画像ファイル
     if os.path.exists(f'{input_dir}/src/images'):
-      entries = [e for e in os.scandir(f'{input_dir}/src/images') if e.name.endswith(('.png', '.svg'))]
+      entries = get_files(f'{input_dir}/src/images', ('.png', '.svg'))
       if len(entries) > 0:
-        init_dir('src/images')
         for entry in entries:
             symlink(f'../../{entry.path}', f'src/images/{entry.name}')
 
