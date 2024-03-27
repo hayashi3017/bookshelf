@@ -32,7 +32,7 @@ jobs:
       - name: Generate Book ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
         run: |
-          ./generate-book.py ${{ inputs.dir-name }}
+          ./build.py ${{ inputs.dir-name }}
       - name: Save Cache ${{ inputs.dir-name }}
         if : steps.cache_check.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
