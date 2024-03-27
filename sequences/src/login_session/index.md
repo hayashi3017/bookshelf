@@ -19,7 +19,7 @@ Session tokenの検証が通ればリクエストを処理し、クライアン�
 ```mermaid
 
 ```
-![traditional session image](../images/session_traditional.png)
+![traditional session image](images/session_traditional.png)
 
 - cons
   - 時間がかかるDBへのクエリ実行が毎回行われている点
@@ -38,7 +38,7 @@ JWT tokenをクライアントへ持たせる
 サーバーは自身でJWTを検証し、ユーザ情報をJWTから取得する
 JWT tokenの検証が通ればリクエストを処理し、クライアントへ成功レスポンスを返す
 
-![token based session image](../images/session_token.png)
+![token based session image](images/session_token.png)
 
 - cons
   - JWTの失効を制御できない点
@@ -52,7 +52,7 @@ JWTでは有効期限の制御を捨てて、短命なトークンを前提と�
 遅いDBへのクエリはKVやキャッシュサーバーを利用しようという案
 これが主流かもしれない、根拠なし
 
-![traditional + kv session image](../images/session_traditional-kv.png)
+![traditional + kv session image](images/session_traditional-kv.png)
 
 
 
