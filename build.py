@@ -2,7 +2,8 @@
 
 """
 `mdbook build`のラッパーであり、mdbookを階層的にビルドします
-
+    homeはbook/配下へビルドします
+    fooはbook/foo/配下へビルドします
 """
 
 import os
