@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
 """
+Deprecated.
+Use build.py instead of this, because this is not good at native mdbook build support.
+ex) meta data (book title) rendering, mermaid-support with mdbook-mermaid
+
 `mdbook build`のラッパーであり、mdbookを階層的にビルドします
 第一引数にmdbookのパス名 (タイトルも同じ想定)を指定してください、例外として`home`を指定した場合は/book直下にビルド成果物を配置します
   例) `mdbook init home --title home --ignore git`などによって/homeをルートとするmdbookが存在する場合、`python3 generate-book.py home`で/book/配下にビルド成果物を配置する
