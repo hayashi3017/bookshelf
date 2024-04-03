@@ -1,0 +1,10 @@
+[book]
+authors = ["hayashi3017"]
+language = "ja"
+multilingual = false
+src = "src"
+title = "mysql"
+
+[output.html]
+no-section-label = true
+fold.enable = true

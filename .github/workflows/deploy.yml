@@ -41,6 +41,10 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: sequences
+  build_mysql:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: mysql
 
   deploy:
     needs:
@@ -54,6 +58,7 @@ jobs:
         build_javascript,
         build_sql,
         build_sequences,
+        build_mysql,
       ]
     runs-on: ubuntu-latest
     permissions:
