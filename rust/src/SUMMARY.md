@@ -10,6 +10,8 @@
   - [test](./standard/test.md)
 - [archtecture](./archtecture/index.md)
   - [huble_object](./archtecture/huble_object.md)
+  - [Cake Pattern](./archtecture/cake_pattern.md)
+  - [minimal Cake Pattern](./archtecture/minimal_cake_pattern.md)
 - [async](./async/index.md)
   - [async/await](./async/async_await.md)
   - [Pinning](./async/pinning.md)
