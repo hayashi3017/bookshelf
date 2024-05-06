@@ -59,6 +59,9 @@ object UserService extends UserService with UserRepositoryComponentImpl
 ```
 
 
+他
+[Minimal Cake Pattern 再考 #テスト - Qiita](https://qiita.com/tayama0324/items/03ba48d3277079f20500)
+
 
 ## Rustでの実践
 

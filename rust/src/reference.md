@@ -25,3 +25,4 @@
 - [The Unstable Book - The Rust Unstable Book](https://doc.rust-lang.org/nightly/unstable-book/index.html)
 - [std - Rust](https://doc.rust-lang.org/std/)
 - [Introduction - Clippy Documentation](https://doc.rust-lang.org/nightly/clippy/)
+- [About - Rust API Guidelines](https://rust-lang.github.io/api-guidelines/about.html)

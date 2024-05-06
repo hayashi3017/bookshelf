@@ -8,6 +8,8 @@
   - [Exception Handling](./standard/exception_handling.md)
   - [expression](./standard/expression.md)
   - [test](./standard/test.md)
+  - [struct](./standard/struct.md)
+  - [trait](./standard/trait.md)
 - [archtecture](./archtecture/index.md)
   - [huble_object](./archtecture/huble_object.md)
   - [Cake Pattern](./archtecture/cake_pattern.md)
