@@ -10,6 +10,7 @@
   - [test](./standard/test.md)
   - [struct](./standard/struct.md)
   - [trait](./standard/trait.md)
+  - [marker trait](./standard/marker_trait.md)
 - [archtecture](./archtecture/index.md)
   - [huble_object](./archtecture/huble_object.md)
   - [Cake Pattern](./archtecture/cake_pattern.md)
@@ -21,3 +22,5 @@
   - [Send](./async/send.md)
 - [macro](./macro/index.md)
   - [example](./macro/example.md)
+  - [procedure](./macro/procedure.md)
+- [debug](./debug/index.md)
