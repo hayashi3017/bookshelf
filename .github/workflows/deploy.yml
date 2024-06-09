@@ -45,6 +45,10 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: mysql
+  build_algorithm:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: algorithm
 
   deploy:
     needs:
@@ -59,6 +63,7 @@ jobs:
         build_sql,
         build_sequences,
         build_mysql,
+        build_algorithm,
       ]
     runs-on: ubuntu-latest
     permissions:
