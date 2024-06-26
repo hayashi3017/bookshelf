@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Algorithm"
+
+[output.html]
+mathjax-support = true
+# https://rust-lang.github.io/mdBook/format/mathjax.html
