@@ -11,3 +11,5 @@
 - [Math](./math/index.md)
   - [combination](./math/combination.md)
   - [base](./math/base.md)
+  - [Fermat's little theorem](./math/fermat's_little_theorem.md)
+  - [Greatest Common Divisor and Lowest Common Multiple](./math/gcd_lcm.md)
