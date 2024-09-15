@@ -49,6 +49,10 @@ jobs:
     uses: ./.github/workflows/reusable_build.yml
     with:
       dir-name: algorithm
+  build_soft_skills:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      dir-name: soft_skills
 
   deploy:
     needs:
@@ -64,6 +68,7 @@ jobs:
         build_sequences,
         build_mysql,
         build_algorithm,
+        build_soft_skills,
       ]
     runs-on: ubuntu-latest
     permissions:
